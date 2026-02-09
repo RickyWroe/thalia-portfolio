@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
-import { animate, motion, useInView, useMotionValue, useTransform } from 'framer-motion'
+import { useEffect, useMemo, useState } from 'react'
 
 const thalia = {
   name: 'Thalia Venous',
@@ -29,10 +28,10 @@ const thalia = {
 }
 
 const stats = [
-  { value: 2, prefix: '$', suffix: 'M+', label: 'Organic reach' },
-  { value: 5, prefix: '', suffix: 'X', label: 'ROAS campaigns' },
-  { value: 100, prefix: '$', suffix: 'K/mo', label: 'Evergreen spend' },
-  { value: 6, prefix: '', suffix: '+ years', label: 'Hands-on experience' }
+  { value: '$2M+', label: 'Organic reach' },
+  { value: '4-5X', label: 'ROAS campaigns' },
+  { value: '$100K/MONTH', label: 'Evergreen ad spend' },
+  { value: '6+ YEARS', label: 'Hands-on experience' }
 ]
 
 function loadScriptOnce(src, id) {
@@ -63,39 +62,41 @@ function loadScriptOnce(src, id) {
   })
 }
 
-function StatCounter({ stat }) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-20%' })
-  const motionValue = useMotionValue(0)
-  const rounded = useTransform(motionValue, (latest) => Math.round(latest))
-
-  useEffect(() => {
-    if (!inView) {
-      return undefined
-    }
-
-    const controls = animate(motionValue, stat.value, {
-      duration: 1.4,
-      ease: [0.22, 1, 0.36, 1]
-    })
-
-    return () => controls.stop()
-  }, [inView, motionValue, stat.value])
-
-  return (
-    <a href="#" onClick={(e) => e.preventDefault()}>
-      <h3>
-        {stat.prefix}
-        <motion.span>{rounded}</motion.span>
-        {stat.suffix}
-      </h3>
-      <p>{stat.label}</p>
-    </a>
-  )
-}
-
 export default function App() {
   const proposalDate = useMemo(() => new Date().toISOString().slice(0, 10), [])
+  const [activeSlide, setActiveSlide] = useState(0)
+  const projectSlides = useMemo(
+    () => [
+      {
+        id: 'winner-01',
+        title: 'UGC Winner 01',
+        description: 'Performance winner scaled in paid social loops.',
+        video: thalia.winnerVideos[0],
+        resultTop: 'Winner 01',
+        resultBottom: '5X ROAS'
+      },
+      {
+        id: 'winner-02',
+        title: 'UGC Winner 02',
+        description: 'Hook-first creative designed for conversion velocity.',
+        video: thalia.winnerVideos[1],
+        resultTop: 'Winner 02',
+        resultBottom: '4-5X ROAS'
+      },
+      {
+        id: 'winner-03',
+        title: 'UGC Winner 03',
+        description: 'Creative system tuned for repeatable ad account lift.',
+        video: thalia.winnerVideos[2],
+        resultTop: 'Winner 03',
+        resultBottom: '4-5X ROAS'
+      }
+    ],
+    []
+  )
+  const totalSlides = projectSlides.length
+  const prevSlide = () => setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides)
+  const nextSlide = () => setActiveSlide((prev) => (prev + 1) % totalSlides)
   const mailtoLink = useMemo(() => {
     const subject = `UGC - Proposal - ${proposalDate}`
     return `mailto:${thalia.email}?subject=${encodeURIComponent(subject)}`
@@ -103,20 +104,6 @@ export default function App() {
 
   useEffect(() => {
     let mounted = true
-    let classObserver = null
-    const syncCarouselPlayback = () => {
-      const videos = document.querySelectorAll('.project-video')
-      videos.forEach((video) => {
-        const item = video.closest('.slider--item')
-        if (item?.classList.contains('slider--item-center')) {
-          video.play().catch(() => {})
-        } else {
-          video.pause()
-          video.currentTime = 0
-        }
-      })
-    }
-
     const bootstrapReferenceRuntime = async () => {
       await loadScriptOnce('/reference/vendor/jquery.min.js', 'reference-jquery')
       await loadScriptOnce('/reference/vendor/hammer.min.js', 'reference-hammer')
@@ -164,13 +151,6 @@ export default function App() {
         window.topologyLoaded = true
       }, 500)
 
-      setTimeout(syncCarouselPlayback, 100)
-      classObserver = new MutationObserver(() => syncCarouselPlayback())
-      classObserver.observe(document.querySelector('.slider') ?? document.body, {
-        subtree: true,
-        attributes: true,
-        attributeFilter: ['class']
-      })
     }
 
     bootstrapReferenceRuntime().catch((error) => {
@@ -179,15 +159,26 @@ export default function App() {
 
     return () => {
       mounted = false
-      if (classObserver) {
-        classObserver.disconnect()
-      }
       if (window.__thaliaVantaInstance?.destroy) {
         window.__thaliaVantaInstance.destroy()
         window.__thaliaVantaInstance = null
       }
     }
   }, [])
+
+  useEffect(() => {
+    const videos = document.querySelectorAll('.ugc-carousel-video')
+    videos.forEach((video) => {
+      const card = video.closest('.ugc-carousel-card')
+      const isCenter = card?.classList.contains('is-center')
+      if (isCenter) {
+        video.play().catch(() => {})
+      } else {
+        video.pause()
+        video.currentTime = 0
+      }
+    })
+  }, [activeSlide])
 
   return (
     <>
@@ -318,93 +309,8 @@ export default function App() {
                 <li className="l-section section" id="projects">
                   <div className="work">
                     <h2>Selected Projects</h2>
-                    <div className="work--lockup">
-                      <ul className="slider">
-                        <li className="slider--item slider--item-left">
-                          <div className="project-card">
-                            <div className="project-frame">
-                              <div className="frame-border">
-                                <video className="project-image project-video" muted loop playsInline preload="metadata">
-                                  <source src={thalia.winnerVideos[0]} type="video/mp4" />
-                                </video>
-                                <div className="result-float-tag">
-                                  <span>Winner 01</span>
-                                  <strong>5X ROAS</strong>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="project-info">
-                              <h3 className="project-title">UGC Winner 01</h3>
-                              <p className="project-description">Performance winner scaled in paid social loops.</p>
-                            </div>
-                          </div>
-                        </li>
-
-                        <li className="slider--item slider--item-center">
-                          <div className="project-card">
-                            <div className="project-frame">
-                              <div className="frame-border">
-                                <video className="project-image project-video" muted loop playsInline preload="metadata">
-                                  <source src={thalia.winnerVideos[1]} type="video/mp4" />
-                                </video>
-                                <div className="result-float-tag">
-                                  <span>Winner 02</span>
-                                  <strong>4-5X ROAS</strong>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="project-info">
-                              <h3 className="project-title">UGC Winner 02</h3>
-                              <p className="project-description">Hook-first creative designed for conversion velocity.</p>
-                            </div>
-                          </div>
-                        </li>
-
-                        <li className="slider--item slider--item-right">
-                          <div className="project-card">
-                            <div className="project-frame">
-                              <div className="frame-border">
-                                <video className="project-image project-video" muted loop playsInline preload="metadata">
-                                  <source src={thalia.winnerVideos[2]} type="video/mp4" />
-                                </video>
-                                <div className="result-float-tag">
-                                  <span>Winner 03</span>
-                                  <strong>4-5X ROAS</strong>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="project-info">
-                              <h3 className="project-title">UGC Winner 03</h3>
-                              <p className="project-description">Creative system tuned for repeatable ad account lift.</p>
-                            </div>
-                          </div>
-                        </li>
-
-                        <li className="slider--item">
-                          <div className="project-card">
-                            <div className="project-frame">
-                              <div className="frame-border">
-                                <iframe
-                                  title="Featured Evergreen Ad"
-                                  className="project-image instagram-frame"
-                                  src={thalia.evergreen.embedUrl}
-                                  loading="lazy"
-                                />
-                                <div className="result-float-tag">
-                                  <span>Evergreen Ad</span>
-                                  <strong>$100K/mo @ 4.5 ROAS</strong>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="project-info">
-                              <h3 className="project-title">Featured Evergreen Ad</h3>
-                              <p className="project-description">Sustained evergreen performer with stable return.</p>
-                            </div>
-                          </div>
-                        </li>
-
-                      </ul>
-                      <div className="slider--prev">
+                    <div className="ugc-carousel-wrap">
+                      <button className="ugc-carousel-nav prev" onClick={prevSlide} aria-label="Previous project">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path
                             d="M15 18L9 12L15 6"
@@ -415,8 +321,38 @@ export default function App() {
                             fill="none"
                           />
                         </svg>
+                      </button>
+                      <div className="ugc-carousel-track">
+                        {[-1, 0, 1].map((offset) => {
+                          const index = (activeSlide + offset + totalSlides) % totalSlides
+                          const slide = projectSlides[index]
+                          const posClass = offset === 0 ? 'is-center' : offset < 0 ? 'is-left' : 'is-right'
+                          return (
+                            <article key={`${slide.id}-${offset}`} className={`ugc-carousel-card ${posClass}`}>
+                              <div className="ugc-video-frame">
+                                <video
+                                  className="ugc-carousel-video"
+                                  muted
+                                  loop
+                                  playsInline
+                                  preload={offset === 0 ? 'auto' : 'metadata'}
+                                >
+                                  <source src={slide.video} type="video/mp4" />
+                                </video>
+                                <div className="result-float-tag">
+                                  <span>{slide.resultTop}</span>
+                                  <strong>{slide.resultBottom}</strong>
+                                </div>
+                              </div>
+                              <div className="project-info">
+                                <h3 className="project-title">{slide.title}</h3>
+                                <p className="project-description">{slide.description}</p>
+                              </div>
+                            </article>
+                          )
+                        })}
                       </div>
-                      <div className="slider--next">
+                      <button className="ugc-carousel-nav next" onClick={nextSlide} aria-label="Next project">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path
                             d="M9 18L15 12L9 6"
@@ -427,14 +363,34 @@ export default function App() {
                             fill="none"
                           />
                         </svg>
-                      </div>
+                      </button>
                     </div>
                     <div className="brand-logos-row" aria-label="Brands worked with">
-                      {thalia.brandLogos.map((logo) => (
+                      {thalia.brandLogos.map((logo, i) => (
                         <div key={logo.name} className="brand-logo-chip">
-                          <img src={logo.src} alt={`${logo.name} logo`} loading="lazy" />
+                          <img
+                            src={logo.src}
+                            alt={`${logo.name} logo`}
+                            loading="lazy"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none'
+                              const fallback = e.currentTarget.parentElement?.querySelector('.brand-fallback')
+                              if (fallback) fallback.textContent = logo.name
+                            }}
+                          />
+                          <span className="brand-fallback">{i === 3 ? 'Bad Bunny' : logo.name}</span>
                         </div>
                       ))}
+                    </div>
+                    <div className="evergreen-inline">
+                      <h3>Featured Evergreen Ad</h3>
+                      <p>$100K/month spend with 4.5 ROAS performance.</p>
+                      <iframe
+                        title="Featured Evergreen Ad"
+                        className="instagram-frame"
+                        src={thalia.evergreen.embedUrl}
+                        loading="lazy"
+                      />
                     </div>
                   </div>
                 </li>
@@ -469,7 +425,10 @@ export default function App() {
                     </div>
                     <div className="about--options">
                       {stats.map((stat) => (
-                        <StatCounter key={stat.label} stat={stat} />
+                        <a key={stat.label} href="#" onClick={(e) => e.preventDefault()}>
+                          <h3>{stat.value}</h3>
+                          <p>{stat.label}</p>
+                        </a>
                       ))}
                     </div>
                   </div>

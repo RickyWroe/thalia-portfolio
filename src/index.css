@@ -19,19 +19,6 @@
   width: min(92vw, 430px) !important;
 }
 
-.work--lockup .slider--item .project-frame,
-.work--lockup .slider--item .frame-border {
-  width: 100%;
-}
-
-.work--lockup .slider--item .project-image {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  border-radius: 14px;
-  display: block;
-}
-
 .result-float-tag {
   position: absolute;
   left: 14px;
@@ -59,8 +46,92 @@
   line-height: 1.2;
 }
 
+.ugc-carousel-wrap {
+  position: relative;
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: 60px 1fr 60px;
+  align-items: center;
+  gap: 10px;
+}
+
+.ugc-carousel-track {
+  position: relative;
+  min-height: 530px;
+  perspective: 1200px;
+}
+
+.ugc-carousel-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(86vw, 430px);
+  transform-origin: center center;
+  transition: transform 320ms ease, opacity 320ms ease;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.ugc-carousel-card .project-info {
+  margin-top: 12px;
+}
+
+.ugc-carousel-card.is-center {
+  transform: translateX(-50%) translateZ(0) scale(1);
+  opacity: 1;
+  z-index: 3;
+}
+
+.ugc-carousel-card.is-left {
+  transform: translateX(calc(-50% - 230px)) scale(0.86) rotateY(18deg);
+  opacity: 0.6;
+  z-index: 2;
+}
+
+.ugc-carousel-card.is-right {
+  transform: translateX(calc(-50% + 230px)) scale(0.86) rotateY(-18deg);
+  opacity: 0.6;
+  z-index: 2;
+}
+
+.ugc-video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #090909;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.ugc-carousel-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.ugc-carousel-nav {
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.ugc-carousel-nav svg {
+  width: 22px;
+  height: 22px;
+}
+
 .brand-logos-row {
-  margin-top: 22px;
+  margin-top: 12px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
@@ -70,17 +141,46 @@
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 12px;
-  min-height: 70px;
+  min-height: 84px;
   display: flex;
+  flex-direction: column;
+  gap: 6px;
   align-items: center;
   justify-content: center;
   padding: 10px;
+  text-align: center;
 }
 
 .brand-logo-chip img {
   max-width: 100%;
-  max-height: 44px;
+  max-height: 38px;
   object-fit: contain;
+}
+
+.brand-fallback {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.evergreen-inline {
+  margin-top: 14px;
+  display: grid;
+  gap: 8px;
+}
+
+.evergreen-inline h3 {
+  margin: 0;
+}
+
+.evergreen-inline p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+.evergreen-inline .instagram-frame {
+  min-height: 360px;
+  border-radius: 12px;
 }
 
 .tiktok-embed {
@@ -93,8 +193,24 @@
     overflow: auto;
   }
 
-  .work--lockup .slider--item .project-card {
-    width: min(94vw, 360px) !important;
+  .ugc-carousel-wrap {
+    grid-template-columns: 40px 1fr 40px;
+    gap: 6px;
+  }
+
+  .ugc-carousel-track {
+    min-height: 450px;
+  }
+
+  .ugc-carousel-card {
+    width: min(84vw, 310px);
+  }
+
+  .ugc-carousel-card.is-left,
+  .ugc-carousel-card.is-right {
+    transform: translateX(-50%) scale(0.86);
+    opacity: 0.22;
+    z-index: 1;
   }
 
   .brand-logos-row {
