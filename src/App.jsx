@@ -34,6 +34,15 @@ const stats = [
   { value: '6+ YEARS', label: 'Hands-on experience' }
 ]
 
+const services = [
+  'UGC Ads',
+  'Paid Social Creative',
+  'Marketplace Creative',
+  'Landing Page UGC',
+  'Creative Strategy Sprint',
+  'Evergreen Ad Systems'
+]
+
 function loadScriptOnce(src, id) {
   return new Promise((resolve, reject) => {
     const existing = document.getElementById(id)
@@ -247,9 +256,6 @@ export default function App() {
                   <li>
                     <span>Contact</span>
                   </li>
-                  <li>
-                    <span>Hire me</span>
-                  </li>
                 </ul>
               </nav>
 
@@ -366,7 +372,7 @@ export default function App() {
                       </button>
                     </div>
                     <div className="brand-logos-row" aria-label="Brands worked with">
-                      {thalia.brandLogos.map((logo, i) => (
+                      {thalia.brandLogos.map((logo) => (
                         <div key={logo.name} className="brand-logo-chip">
                           <img
                             src={logo.src}
@@ -375,22 +381,15 @@ export default function App() {
                             onError={(e) => {
                               e.currentTarget.style.display = 'none'
                               const fallback = e.currentTarget.parentElement?.querySelector('.brand-fallback')
-                              if (fallback) fallback.textContent = logo.name
+                              if (fallback) {
+                                fallback.textContent = logo.name
+                                fallback.style.display = 'block'
+                              }
                             }}
                           />
-                          <span className="brand-fallback">{i === 3 ? 'Bad Bunny' : logo.name}</span>
+                          <span className="brand-fallback">{logo.name}</span>
                         </div>
                       ))}
-                    </div>
-                    <div className="evergreen-inline">
-                      <h3>Featured Evergreen Ad</h3>
-                      <p>$100K/month spend with 4.5 ROAS performance.</p>
-                      <iframe
-                        title="Featured Evergreen Ad"
-                        className="instagram-frame"
-                        src={thalia.evergreen.embedUrl}
-                        loading="lazy"
-                      />
                     </div>
                   </div>
                 </li>
@@ -460,80 +459,39 @@ export default function App() {
                             </g>
                           </svg>
                         </a>
+                        <form className="contact-services-form" action="https://formspree.io/f/mpwdzzry" method="POST">
+                          <label htmlFor="service-selector">Select service</label>
+                          <select id="service-selector" name="service" defaultValue={services[0]} required>
+                            {services.map((service) => (
+                              <option key={service} value={service}>
+                                {service}
+                              </option>
+                            ))}
+                          </select>
+                          <input type="hidden" name="_subject" value={`UGC - Proposal - ${proposalDate}`} />
+                        </form>
                       </div>
                       <div className="parent">
                         <div className="card">
                           <div className="content-box">
-                            <span className="card-title">Channels</span>
+                            <span className="card-title">Winner Projects</span>
                             <a
-                              href="https://www.instagram.com/reel/DNIZKu_u7gb/"
+                              href={thalia.evergreen.embedUrl.replace('/embed', '/')}
                               target="_blank"
                               rel="noreferrer"
                               className="see-more"
                             >
-                              Instagram Reel
+                              Evergreen UGC ad - $100K/month @ 4.5 ROAS
                             </a>
                             {thalia.tiktokProjects.map((item) => (
                               <a key={item.url} href={item.url} target="_blank" rel="noreferrer" className="see-more">
-                                {item.brand}
+                                {item.brand} - {item.title}
                               </a>
                             ))}
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </li>
-
-                <li className="l-section section" id="hire">
-                  <div className="hire">
-                    <h2>You want me to do</h2>
-                    <form className="work-request" action="https://formspree.io/f/mpwdzzry" method="POST">
-                      <fieldset className="work-request--options-fieldset">
-                        <legend className="sr-only">Select at least one service you need</legend>
-                        <div className="work-request--options" role="group" aria-labelledby="services-label">
-                          <span id="services-label" className="sr-only">
-                            Services
-                          </span>
-
-                          <span className="options-a">
-                            <input id="opt-1" type="checkbox" name="services[]" value="UGC Ads" />
-                            <label htmlFor="opt-1">UGC Ads</label>
-
-                            <input id="opt-2" type="checkbox" name="services[]" value="Paid Social Creative" />
-                            <label htmlFor="opt-2">Paid Social Creative</label>
-
-                            <input id="opt-3" type="checkbox" name="services[]" value="Marketplace Creative" />
-                            <label htmlFor="opt-3">Marketplace Creative</label>
-                          </span>
-
-                          <span className="options-b">
-                            <input id="opt-4" type="checkbox" name="services[]" value="Landing Page UGC" />
-                            <label htmlFor="opt-4">Landing Page UGC</label>
-
-                            <input id="opt-5" type="checkbox" name="services[]" value="Creative Strategy Sprint" />
-                            <label htmlFor="opt-5">Creative Strategy Sprint</label>
-
-                            <input id="opt-6" type="checkbox" name="services[]" value="Evergreen Ad Systems" />
-                            <label htmlFor="opt-6">Evergreen Ad Systems</label>
-                          </span>
-                        </div>
-                        <div id="services-error" className="work-request--error" role="alert" aria-live="polite" />
-                      </fieldset>
-
-                      <div className="work-request--information">
-                        <div className="information-name">
-                          <input id="name" type="text" name="name" spellCheck="false" required />
-                          <label htmlFor="name">Name</label>
-                        </div>
-                        <div className="information-email">
-                          <input id="email" type="email" name="_replyto" spellCheck="false" required />
-                          <label htmlFor="email">Email</label>
-                        </div>
-                      </div>
-
-                      <input type="submit" id="submit-btn" value="Send Request" />
-                    </form>
                   </div>
                 </li>
               </ul>
@@ -546,7 +504,6 @@ export default function App() {
           <li>Projects</li>
           <li>About</li>
           <li>Contact</li>
-          <li>Hire me</li>
         </ul>
       </div>
 

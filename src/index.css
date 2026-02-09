@@ -57,7 +57,7 @@
 
 .ugc-carousel-track {
   position: relative;
-  min-height: 530px;
+  min-height: 620px;
   perspective: 1200px;
 }
 
@@ -98,7 +98,7 @@
 .ugc-video-frame {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 9 / 16;
   border-radius: 16px;
   overflow: hidden;
   background: #090909;
@@ -109,7 +109,7 @@
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .ugc-carousel-nav {
@@ -131,10 +131,13 @@
 }
 
 .brand-logos-row {
-  margin-top: 12px;
+  margin-top: 26px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .brand-logo-chip {
@@ -158,29 +161,35 @@
 }
 
 .brand-fallback {
+  display: none;
   color: #fff;
   font-size: 12px;
   font-weight: 600;
 }
 
-.evergreen-inline {
-  margin-top: 14px;
+.contact-services-form {
+  margin-top: 16px;
   display: grid;
   gap: 8px;
+  max-width: 320px;
 }
 
-.evergreen-inline h3 {
-  margin: 0;
+.contact-services-form label {
+  color: #fff;
+  font-weight: 600;
 }
 
-.evergreen-inline p {
-  margin: 0;
-  opacity: 0.9;
+.contact-services-form select {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 10px;
+  padding: 10px 12px;
+  outline: none;
 }
 
-.evergreen-inline .instagram-frame {
-  min-height: 360px;
-  border-radius: 12px;
+.contact-services-form option {
+  color: #111;
 }
 
 .tiktok-embed {
@@ -199,7 +208,7 @@
   }
 
   .ugc-carousel-track {
-    min-height: 450px;
+    min-height: 520px;
   }
 
   .ugc-carousel-card {
