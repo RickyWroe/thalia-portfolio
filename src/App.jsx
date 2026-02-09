@@ -15,26 +15,16 @@ const thalia = {
     embedUrl: 'https://www.instagram.com/reel/DNIZKu_u7gb/embed'
   },
   tiktokProjects: [
-    {
-      brand: 'Bad Bunny Merch',
-      title: 'Organic Contest Example 01',
-      url: 'https://www.tiktok.com/t/ZTh5EeGvK/'
-    },
-    {
-      brand: 'Bad Bunny Merch',
-      title: 'Organic Contest Example 02',
-      url: 'https://www.tiktok.com/t/ZTh5EY8Mb/'
-    },
-    {
-      brand: 'Skims',
-      title: 'Organic Contest Example',
-      url: 'https://www.tiktok.com/t/ZTh5ELYap/'
-    },
-    {
-      brand: 'Pandora',
-      title: 'Organic Contest Example',
-      url: 'https://www.tiktok.com/t/ZTh5EUtWF/'
-    }
+    { brand: 'Bad Bunny Merch', title: 'Organic Contest Example 01', url: 'https://www.tiktok.com/t/ZTh5EeGvK/' },
+    { brand: 'Bad Bunny Merch', title: 'Organic Contest Example 02', url: 'https://www.tiktok.com/t/ZTh5EY8Mb/' },
+    { brand: 'Skims', title: 'Organic Contest Example', url: 'https://www.tiktok.com/t/ZTh5ELYap/' },
+    { brand: 'Pandora', title: 'Organic Contest Example', url: 'https://www.tiktok.com/t/ZTh5EUtWF/' }
+  ],
+  brandLogos: [
+    { name: 'Aromely', src: 'https://aromely.com/cdn/shop/files/LOGOTIPO_AROMELY.webp?v=1749227079&width=120' },
+    { name: 'Pandora', src: 'https://logo.clearbit.com/pandora.net' },
+    { name: 'Skims', src: 'https://logo.clearbit.com/skims.com' },
+    { name: 'Bad Bunny', src: 'https://www.shutterstock.com/image-vector/bad-bunny-logo-design-vector-600nw-2426262171.jpg' }
   ]
 }
 
@@ -63,7 +53,7 @@ function loadScriptOnce(src, id) {
     const script = document.createElement('script')
     script.id = id
     script.src = src
-    script.async = true
+    script.async = false
     script.onload = () => {
       script.dataset.loaded = 'true'
       resolve()
@@ -113,43 +103,60 @@ export default function App() {
 
   useEffect(() => {
     let mounted = true
+    let classObserver = null
+    const syncCarouselPlayback = () => {
+      const videos = document.querySelectorAll('.project-video')
+      videos.forEach((video) => {
+        const item = video.closest('.slider--item')
+        if (item?.classList.contains('slider--item-center')) {
+          video.play().catch(() => {})
+        } else {
+          video.pause()
+          video.currentTime = 0
+        }
+      })
+    }
 
     const bootstrapReferenceRuntime = async () => {
       await loadScriptOnce('/reference/vendor/jquery.min.js', 'reference-jquery')
       await loadScriptOnce('/reference/vendor/hammer.min.js', 'reference-hammer')
       await loadScriptOnce('/reference/vendor/gsap.min.js', 'reference-gsap')
-      await loadScriptOnce('/reference/vendor/p5.min.js', 'reference-p5')
-      await loadScriptOnce('/reference/vendor/vanta.topology.min.js', 'reference-vanta')
       await loadScriptOnce('/reference/function.js', 'reference-function-js')
-      await loadScriptOnce('https://www.tiktok.com/embed.js', 'reference-tiktok-embed')
 
       if (!mounted) {
         return
       }
 
       const isMobile = window.innerWidth <= 768
+      const lowPowerMode =
+        isMobile || window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
       if (window.__thaliaVantaInstance?.destroy) {
         window.__thaliaVantaInstance.destroy()
       }
 
-      if (window.VANTA?.TOPOLOGY) {
-        window.__thaliaVantaInstance = window.VANTA.TOPOLOGY({
-          el: '#perspective',
-          mouseControls: false,
-          touchControls: false,
-          gyroControls: false,
-          minHeight: 200,
-          minWidth: 200,
-          scale: 0.8,
-          scaleMobile: 0.8,
-          maxDistance: 15,
-          spacing: 25,
-          fpsLimit: isMobile ? 30 : 60,
-          backgroundColor: 0x4931d5,
-          color: 0x6d5ce1,
-          lineColor: 0xffffff
-        })
+      if (!lowPowerMode) {
+        await loadScriptOnce('/reference/vendor/p5.min.js', 'reference-p5')
+        await loadScriptOnce('/reference/vendor/vanta.topology.min.js', 'reference-vanta')
+
+        if (window.VANTA?.TOPOLOGY) {
+          window.__thaliaVantaInstance = window.VANTA.TOPOLOGY({
+            el: '#perspective',
+            mouseControls: false,
+            touchControls: false,
+            gyroControls: false,
+            minHeight: 200,
+            minWidth: 200,
+            scale: 0.8,
+            scaleMobile: 0.8,
+            maxDistance: 15,
+            spacing: 25,
+            fpsLimit: isMobile ? 30 : 60,
+            backgroundColor: 0x4931d5,
+            color: 0x6d5ce1,
+            lineColor: 0xffffff
+          })
+        }
       }
 
       window.topologyLoaded = false
@@ -157,9 +164,13 @@ export default function App() {
         window.topologyLoaded = true
       }, 500)
 
-      if (window.tiktokEmbedLoad) {
-        window.tiktokEmbedLoad()
-      }
+      setTimeout(syncCarouselPlayback, 100)
+      classObserver = new MutationObserver(() => syncCarouselPlayback())
+      classObserver.observe(document.querySelector('.slider') ?? document.body, {
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['class']
+      })
     }
 
     bootstrapReferenceRuntime().catch((error) => {
@@ -168,6 +179,9 @@ export default function App() {
 
     return () => {
       mounted = false
+      if (classObserver) {
+        classObserver.disconnect()
+      }
       if (window.__thaliaVantaInstance?.destroy) {
         window.__thaliaVantaInstance.destroy()
         window.__thaliaVantaInstance = null
@@ -310,12 +324,12 @@ export default function App() {
                           <div className="project-card">
                             <div className="project-frame">
                               <div className="frame-border">
-                                <video className="project-image" autoPlay muted loop playsInline preload="metadata">
+                                <video className="project-image project-video" muted loop playsInline preload="metadata">
                                   <source src={thalia.winnerVideos[0]} type="video/mp4" />
                                 </video>
-                                <div className="tech-buttons">
-                                  <span className="tech-btn">Winner 01</span>
-                                  <span className="tech-btn">5X ROAS</span>
+                                <div className="result-float-tag">
+                                  <span>Winner 01</span>
+                                  <strong>5X ROAS</strong>
                                 </div>
                               </div>
                             </div>
@@ -330,12 +344,12 @@ export default function App() {
                           <div className="project-card">
                             <div className="project-frame">
                               <div className="frame-border">
-                                <video className="project-image" autoPlay muted loop playsInline preload="metadata">
+                                <video className="project-image project-video" muted loop playsInline preload="metadata">
                                   <source src={thalia.winnerVideos[1]} type="video/mp4" />
                                 </video>
-                                <div className="tech-buttons">
-                                  <span className="tech-btn">Winner 02</span>
-                                  <span className="tech-btn">4-5X ROAS</span>
+                                <div className="result-float-tag">
+                                  <span>Winner 02</span>
+                                  <strong>4-5X ROAS</strong>
                                 </div>
                               </div>
                             </div>
@@ -350,12 +364,12 @@ export default function App() {
                           <div className="project-card">
                             <div className="project-frame">
                               <div className="frame-border">
-                                <video className="project-image" autoPlay muted loop playsInline preload="metadata">
+                                <video className="project-image project-video" muted loop playsInline preload="metadata">
                                   <source src={thalia.winnerVideos[2]} type="video/mp4" />
                                 </video>
-                                <div className="tech-buttons">
-                                  <span className="tech-btn">Winner 03</span>
-                                  <span className="tech-btn">4-5X ROAS</span>
+                                <div className="result-float-tag">
+                                  <span>Winner 03</span>
+                                  <strong>4-5X ROAS</strong>
                                 </div>
                               </div>
                             </div>
@@ -376,9 +390,9 @@ export default function App() {
                                   src={thalia.evergreen.embedUrl}
                                   loading="lazy"
                                 />
-                                <div className="tech-buttons">
-                                  <span className="tech-btn">100K/mo Spend</span>
-                                  <span className="tech-btn">4.5 ROAS</span>
+                                <div className="result-float-tag">
+                                  <span>Evergreen Ad</span>
+                                  <strong>$100K/mo @ 4.5 ROAS</strong>
                                 </div>
                               </div>
                             </div>
@@ -389,33 +403,6 @@ export default function App() {
                           </div>
                         </li>
 
-                        {thalia.tiktokProjects.map((item) => (
-                          <li key={item.url} className="slider--item">
-                            <div className="project-card">
-                              <div className="project-frame">
-                                <div className="frame-border tiktok-frame-wrap">
-                                  <blockquote className="tiktok-embed" cite={item.url}>
-                                    <section>
-                                      <a href={item.url} target="_blank" rel="noreferrer">
-                                        Watch on TikTok
-                                      </a>
-                                    </section>
-                                  </blockquote>
-                                </div>
-                              </div>
-                              <div className="project-info">
-                                <h3 className="project-title">
-                                  {item.brand} - {item.title}
-                                </h3>
-                                <div className="project-buttons">
-                                  <a href={item.url} target="_blank" rel="noreferrer" className="btn-preview">
-                                    <span>Open in TikTok</span>
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                        ))}
                       </ul>
                       <div className="slider--prev">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -441,6 +428,13 @@ export default function App() {
                           />
                         </svg>
                       </div>
+                    </div>
+                    <div className="brand-logos-row" aria-label="Brands worked with">
+                      {thalia.brandLogos.map((logo) => (
+                        <div key={logo.name} className="brand-logo-chip">
+                          <img src={logo.src} alt={`${logo.name} logo`} loading="lazy" />
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </li>
