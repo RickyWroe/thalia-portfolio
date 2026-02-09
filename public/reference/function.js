@@ -289,13 +289,13 @@ window.triggerStairsTransition = function (callback, isReverse = false) {
 // Global variable to track topology loading
 window.topologyLoaded = false;
 
-function initReferenceLoader() {
+document.addEventListener("DOMContentLoaded", function () {
   stairsContainer = document.getElementById("stairs-transition");
   capybaraLoader = document.getElementById("capybara-loader");
   if (capybaraLoader) {
     capybaraLoader.classList.remove("hidden");
   }
-
+  
   // Function to hide loader and show stairs animation
   function hideLoaderAndShowStairs() {
     if (capybaraLoader) {
@@ -314,7 +314,7 @@ function initReferenceLoader() {
       }, 600);
     }
   }
-
+  
   // Wait for topology to load before hiding loader
   function checkTopologyLoaded() {
     if (window.topologyLoaded) {
@@ -324,16 +324,10 @@ function initReferenceLoader() {
       setTimeout(checkTopologyLoaded, 100);
     }
   }
-
+  
   // Start checking after minimum 1.5 seconds
   setTimeout(checkTopologyLoaded, 1500);
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initReferenceLoader);
-} else {
-  initReferenceLoader();
-}
+});
 
 const container = document.querySelector(".pixelated-image-card");
 if (!container) {
@@ -428,22 +422,22 @@ if (!container) {
 
 
 // Form validation and reset functionality for hire me section
-$(document).ready(function () {
+$(document).ready(function() {
   const workRequestForm = document.querySelector('.work-request');
-
+  
   if (workRequestForm) {
     const submitBtn = workRequestForm.querySelector('#submit-btn');
     const checkboxes = workRequestForm.querySelectorAll('input[type="checkbox"][name="services[]"]');
     const errorMessage = workRequestForm.querySelector('#services-error');
     const optionsContainer = workRequestForm.querySelector('.work-request--options');
-
+    
     // Function to check if at least one checkbox is selected
     function hasSelectedService() {
-      return Array.from(checkboxes).some(function (checkbox) {
+      return Array.from(checkboxes).some(function(checkbox) {
         return checkbox.checked;
       });
     }
-
+    
     // Function to show error message
     function showError(message) {
       if (errorMessage) {
@@ -454,7 +448,7 @@ $(document).ready(function () {
         }
       }
     }
-
+    
     // Function to hide error message
     function hideError() {
       if (errorMessage) {
@@ -465,18 +459,18 @@ $(document).ready(function () {
         }
       }
     }
-
+    
     // Add event listeners to all checkboxes
-    checkboxes.forEach(function (checkbox) {
-      checkbox.addEventListener('change', function () {
+    checkboxes.forEach(function(checkbox) {
+      checkbox.addEventListener('change', function() {
         // Hide error when user selects a checkbox
         if (hasSelectedService()) {
           hideError();
         }
       });
-
+      
       // Add keyboard support for accessibility
-      checkbox.addEventListener('keydown', function (e) {
+      checkbox.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           checkbox.checked = !checkbox.checked;
@@ -484,37 +478,37 @@ $(document).ready(function () {
         }
       });
     });
-
+    
     // Validate on form submit - only check for service selection
     // HTML5 validation will handle name and email automatically with default browser messages
-    workRequestForm.addEventListener('submit', function (e) {
+    workRequestForm.addEventListener('submit', function(e) {
       // Check if at least one service is selected
       // This check happens independently of HTML5 validation
       if (!hasSelectedService()) {
         e.preventDefault();
         e.stopPropagation();
         showError('Please select at least one service.');
-
+        
         // Focus on first checkbox for accessibility
         if (checkboxes.length > 0) {
           checkboxes[0].focus();
         }
-
+        
         return false;
       }
-
-      setTimeout(function () {
+      
+      setTimeout(function() {
         workRequestForm.reset();
-
+        
         const inputs = workRequestForm.querySelectorAll('.work-request--information input');
-        inputs.forEach(function (input) {
+        inputs.forEach(function(input) {
           input.classList.remove('has-value');
         });
-
-        checkboxes.forEach(function (checkbox) {
+        
+        checkboxes.forEach(function(checkbox) {
           checkbox.checked = false;
         });
-
+        
         hideError();
       }, 100);
     });
