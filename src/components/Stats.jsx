@@ -1,34 +1,74 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useInView } from 'framer-motion';
+import { brandResults } from '../data/brands';
 
-const stats = [
-    { label: "Organic Reach", value: "$2M+" },
-    { label: "ROAS on Winner Ad", value: "5x" },
-    { label: "Ad Spend Managed", value: "$100K+" },
-    { label: "Years Experience", value: "6+" }
-];
+const CountUpValue = ({ target, duration = 1200, decimals = 0, prefix = '', suffix = '' }) => {
+    const [value, setValue] = useState(0);
+    const ref = React.useRef(null);
+    const isInView = useInView(ref, { once: true, margin: '-80px' });
+
+    useEffect(() => {
+        if (!isInView) return;
+
+        const start = performance.now();
+        let rafId;
+
+        const animate = (timestamp) => {
+            const progress = Math.min((timestamp - start) / duration, 1);
+            setValue(target * progress);
+            if (progress < 1) rafId = requestAnimationFrame(animate);
+        };
+
+        rafId = requestAnimationFrame(animate);
+        return () => cancelAnimationFrame(rafId);
+    }, [duration, isInView, target]);
+
+    const formatted = useMemo(
+        () => `${prefix}${value.toFixed(decimals)}${suffix}`,
+        [decimals, prefix, suffix, value],
+    );
+
+    return (
+        <span ref={ref} className="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary">
+            {formatted}
+        </span>
+    );
+};
 
 const Stats = () => {
     return (
-        <section className="py-20 bg-primary border-y border-white/10">
-            <div className="max-w-6xl mx-auto px-6">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-                    {stats.map((stat, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.1, duration: 0.5 }}
-                            viewport={{ once: true }}
-                            className="flex flex-col items-center"
+        <section className="py-16 sm:py-20 bg-background">
+            <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-12">
+                <div className="mb-10 sm:mb-12 text-center">
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary">Winner Projects</h2>
+                    <p className="mt-3 text-accent">Top-performing brand results with animated performance metrics.</p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 sm:gap-6">
+                    {brandResults.map((brand) => (
+                        <article
+                            key={brand.name}
+                            className="rounded-2xl border border-primary/20 p-6 bg-white shadow-[0_14px_35px_rgba(225,166,180,0.18)]"
                         >
-                            <h3 className="text-4xl md:text-5xl font-bold font-sans mb-2 bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent">
-                                {stat.value}
-                            </h3>
-                            <p className="text-gray-400 text-sm md:text-base uppercase tracking-widest font-medium">
-                                {stat.label}
-                            </p>
-                        </motion.div>
+                            <img
+                                src={brand.logo}
+                                alt={`${brand.name} logo`}
+                                loading="lazy"
+                                decoding="async"
+                                className="h-14 sm:h-16 w-auto object-contain mb-6"
+                            />
+
+                            <div className="space-y-2">
+                                <h3 className="text-lg font-semibold text-secondary">{brand.name}</h3>
+                                <p className="text-sm uppercase tracking-[0.12em] text-accent">{brand.metricLabel}</p>
+                                <CountUpValue
+                                    target={brand.value}
+                                    decimals={brand.decimals}
+                                    prefix={brand.prefix}
+                                    suffix={brand.suffix}
+                                />
+                            </div>
+                        </article>
                     ))}
                 </div>
             </div>

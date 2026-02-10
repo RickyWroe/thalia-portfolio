@@ -11,10 +11,11 @@ export default {
         serif: ['Inter', 'serif'],
       },
       colors: {
-        primary: '#000000',
-        secondary: '#ffffff',
-        accent: '#333333',
-        highlight: '#f2f2f2'
+        primary: '#E1A6B4',
+        background: '#FFFFFF',
+        secondary: '#1F172A',
+        accent: '#6B4E58',
+        highlight: '#F7E7EC'
       }
     },
   },

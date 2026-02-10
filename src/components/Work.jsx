@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Play, ExternalLink, Instagram } from 'lucide-react';
+import { Play, ExternalLink } from 'lucide-react';
 
 const videos = [
     {
@@ -40,24 +39,19 @@ const socialLinks = [
 
 const Work = () => {
     return (
-        <section className="py-24 px-6 bg-primary">
+        <section className="py-16 sm:py-20 lg:py-24 px-5 sm:px-8 lg:px-12 bg-background">
             <div className="max-w-6xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="mb-16 text-center"
-                >
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6">Selected Work</h2>
-                    <p className="text-gray-400 max-w-2xl mx-auto">
+                <div className="mb-16 text-center">
+                    <h2 className="text-3xl md:text-5xl font-bold mb-6 text-secondary">Selected Work</h2>
+                    <p className="text-accent max-w-2xl mx-auto">
                         A curation of high-performing creative assets driving real revenue and engagement.
                     </p>
-                </motion.div>
+                </div>
 
                 {/* MP4 Video Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 mb-14">
                     {videos.map((video, index) => (
-                        <div key={index} className="relative aspect-[9/16] bg-gray-900 rounded-2xl overflow-hidden group shadow-lg border border-white/5">
+                        <div key={index} className="relative aspect-[9/16] bg-slate-900 rounded-2xl overflow-hidden group shadow-lg border border-primary/20">
                             <video
                                 src={video.src}
                                 className="w-full h-full object-cover"
@@ -65,6 +59,7 @@ const Work = () => {
                                 playsInline
                                 loop
                                 autoPlay
+                                preload="none"
                             />
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <Play className="w-12 h-12 text-white fill-white" />
@@ -74,20 +69,20 @@ const Work = () => {
                 </div>
 
                 {/* Social Links / Other Works */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                     {socialLinks.map((link, index) => (
                         <a
                             key={index}
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-between p-6 bg-white/5 rounded-xl hover:bg-white/10 transition-colors border border-white/5 group"
+                            className="flex items-center justify-between p-6 bg-white rounded-xl hover:bg-highlight transition-colors border border-primary/20 group"
                         >
                             <div>
-                                <h3 className="font-semibold text-lg">{link.platform}</h3>
-                                <p className="text-sm text-gray-400">{link.label}</p>
+                                <h3 className="font-semibold text-lg text-secondary">{link.platform}</h3>
+                                <p className="text-sm text-accent">{link.label}</p>
                             </div>
-                            <ExternalLink className="w-5 h-5 text-gray-500 group-hover:text-white transition-colors" />
+                            <ExternalLink className="w-5 h-5 text-accent group-hover:text-secondary transition-colors" />
                         </a>
                     ))}
                 </div>

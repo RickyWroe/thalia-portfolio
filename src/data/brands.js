@@ -1,0 +1,38 @@
+export const brandResults = [
+  {
+    name: 'Bad Bunny Merch',
+    logo: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/3_56e818d1-2b72-4da7-80e0-b44388955429.png?v=1770698238',
+    metricLabel: 'Organic Views',
+    value: 300,
+    prefix: '',
+    suffix: 'K',
+    decimals: 0,
+  },
+  {
+    name: 'Skims',
+    logo: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/2_6f5f9207-9006-40e6-b0d4-d4791e856ab4.png?v=1770698238',
+    metricLabel: 'Retention Rate',
+    value: 98,
+    prefix: '',
+    suffix: '%',
+    decimals: 0,
+  },
+  {
+    name: 'Aromely',
+    logo: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/1_63049b3c-6b51-4208-bed9-6b6b7dd0f566.png?v=1770698238',
+    metricLabel: 'ROAS',
+    value: 5,
+    prefix: '',
+    suffix: 'x',
+    decimals: 1,
+  },
+  {
+    name: 'Pandora',
+    logo: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/4_e828e394-704a-45cc-8230-9e19566ce9ca.png?v=1770698238',
+    metricLabel: 'Retention Rate',
+    value: 70,
+    prefix: '',
+    suffix: '%',
+    decimals: 0,
+  },
+];
