@@ -126,6 +126,8 @@ function loadScriptOnce(src, id) {
 }
 
 export default function App() {
+  const baseUrl = import.meta.env.BASE_URL || '/'
+  const referenceRoot = useMemo(() => `${baseUrl}reference/`, [baseUrl])
   const proposalDate = useMemo(() => new Date().toISOString().slice(0, 10), [])
   const [activeSlide, setActiveSlide] = useState(0)
   const projectSlides = useMemo(() => thalia.winnerVideos, [])
@@ -140,10 +142,10 @@ export default function App() {
   useEffect(() => {
     let mounted = true
     const bootstrapReferenceRuntime = async () => {
-      await loadScriptOnce('/reference/vendor/jquery.min.js', 'reference-jquery')
-      await loadScriptOnce('/reference/vendor/hammer.min.js', 'reference-hammer')
-      await loadScriptOnce('/reference/vendor/gsap.min.js', 'reference-gsap')
-      await loadScriptOnce('/reference/function.js', 'reference-function-js')
+      await loadScriptOnce(`${referenceRoot}vendor/jquery.min.js`, 'reference-jquery')
+      await loadScriptOnce(`${referenceRoot}vendor/hammer.min.js`, 'reference-hammer')
+      await loadScriptOnce(`${referenceRoot}vendor/gsap.min.js`, 'reference-gsap')
+      await loadScriptOnce(`${referenceRoot}function.js`, 'reference-function-js')
 
       if (!mounted) {
         return
@@ -158,8 +160,8 @@ export default function App() {
       }
 
       if (!lowPowerMode) {
-        await loadScriptOnce('/reference/vendor/p5.min.js', 'reference-p5')
-        await loadScriptOnce('/reference/vendor/vanta.topology.min.js', 'reference-vanta')
+        await loadScriptOnce(`${referenceRoot}vendor/p5.min.js`, 'reference-p5')
+        await loadScriptOnce(`${referenceRoot}vendor/vanta.topology.min.js`, 'reference-vanta')
 
         if (window.VANTA?.TOPOLOGY) {
           window.__thaliaVantaInstance = window.VANTA.TOPOLOGY({
@@ -199,7 +201,7 @@ export default function App() {
         window.__thaliaVantaInstance = null
       }
     }
-  }, [])
+  }, [referenceRoot])
 
   useEffect(() => {
     const videos = document.querySelectorAll('.ugc-carousel-video')
