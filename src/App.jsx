@@ -6,23 +6,84 @@ const thalia = {
   profilePhoto:
     'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/Facetune_05-07-2023-16-02-06.jpg?v=1770522502',
   winnerVideos: [
-    'https://cdn.shopify.com/videos/c/o/v/c354bacc3be54f3fa98948ff8ffda56a.mp4',
-    'https://cdn.shopify.com/videos/c/o/v/5a3cfcf8ecc9486daa427c422c12ff65.mp4',
-    'https://cdn.shopify.com/videos/c/o/v/85d46d46469c46279e14f452f981af5f.mp4'
+    {
+      id: 'paid-01',
+      title: 'Evergreen Ad 01',
+      description: 'Aromely evergreen paid winner',
+      video: 'https://cdn.shopify.com/videos/c/o/v/3b7ad7ab9843434f870093aaba59e5c1.mp4',
+      resultTop: 'Aromely Paid',
+      resultBottom: '2M impressions · 4X ROAS · $150K spend'
+    },
+    {
+      id: 'paid-02',
+      title: 'Winner 02',
+      description: 'Aromely paid winner',
+      video: 'https://cdn.shopify.com/videos/c/o/v/85d46d46469c46279e14f452f981af5f.mp4',
+      resultTop: 'Aromely Paid',
+      resultBottom: '5X ROAS'
+    },
+    {
+      id: 'paid-03',
+      title: 'Winner 03',
+      description: 'Aromely paid winner',
+      video: 'https://cdn.shopify.com/videos/c/o/v/5a3cfcf8ecc9486daa427c422c12ff65.mp4',
+      resultTop: 'Aromely Paid',
+      resultBottom: '4X ROAS'
+    },
+    {
+      id: 'paid-04',
+      title: 'Winner 04',
+      description: 'Aromely paid winner',
+      video: 'https://cdn.shopify.com/videos/c/o/v/c354bacc3be54f3fa98948ff8ffda56a.mp4',
+      resultTop: 'Aromely Paid',
+      resultBottom: '6X ROAS'
+    },
+    {
+      id: 'org-01',
+      title: 'Bad Bunny Merch',
+      description: 'Organic result',
+      video: 'https://cdn.shopify.com/videos/c/o/v/08913302125e45a7b986ccdda12379ed.mp4',
+      resultTop: 'Organic',
+      resultBottom: '60K views'
+    },
+    {
+      id: 'org-02',
+      title: 'Skims',
+      description: 'Organic result',
+      video: 'https://cdn.shopify.com/videos/c/o/v/f1b65a3fa8ec4f8eb3e23be6a0e78824.mp4',
+      resultTop: 'Organic',
+      resultBottom: '70% retention rate'
+    },
+    {
+      id: 'org-03',
+      title: 'Bad Bunny Merch 02',
+      description: 'Organic result',
+      video: 'https://cdn.shopify.com/videos/c/o/v/4b6701cd8f3b49d3a6c24ba3752f1453.mp4',
+      resultTop: 'Organic',
+      resultBottom: '300K views'
+    },
+    {
+      id: 'org-04',
+      title: 'Pandora',
+      description: 'Organic result',
+      video: 'https://cdn.shopify.com/videos/c/o/v/8e5ca2bafa8d4a7b89acf545751214fb.mp4',
+      resultTop: 'Organic',
+      resultBottom: '80% engagement rate'
+    }
   ],
   evergreen: {
     embedUrl: 'https://www.instagram.com/reel/DNIZKu_u7gb/embed'
   },
   tiktokProjects: [
-    { brand: 'Bad Bunny Merch', title: 'Organic Contest Example 01', url: 'https://www.tiktok.com/t/ZTh5EeGvK/' },
-    { brand: 'Bad Bunny Merch', title: 'Organic Contest Example 02', url: 'https://www.tiktok.com/t/ZTh5EY8Mb/' },
-    { brand: 'Skims', title: 'Organic Contest Example', url: 'https://www.tiktok.com/t/ZTh5ELYap/' },
-    { brand: 'Pandora', title: 'Organic Contest Example', url: 'https://www.tiktok.com/t/ZTh5EUtWF/' }
+    { brand: 'Bad Bunny Merch', title: 'Organic result · 60K views', url: 'https://cdn.shopify.com/videos/c/o/v/08913302125e45a7b986ccdda12379ed.mp4' },
+    { brand: 'Skims', title: 'Organic result · 70% retention rate', url: 'https://cdn.shopify.com/videos/c/o/v/f1b65a3fa8ec4f8eb3e23be6a0e78824.mp4' },
+    { brand: 'Bad Bunny Merch 02', title: 'Organic result · 300K views', url: 'https://cdn.shopify.com/videos/c/o/v/4b6701cd8f3b49d3a6c24ba3752f1453.mp4' },
+    { brand: 'Pandora', title: 'Organic result · 80% engagement rate', url: 'https://cdn.shopify.com/videos/c/o/v/8e5ca2bafa8d4a7b89acf545751214fb.mp4' }
   ],
   brandLogos: [
     { name: 'Aromely', src: 'https://aromely.com/cdn/shop/files/LOGOTIPO_AROMELY.webp?v=1749227079&width=120' },
-    { name: 'Pandora', src: 'https://logo.clearbit.com/pandora.net' },
-    { name: 'Skims', src: 'https://logo.clearbit.com/skims.com' },
+    { name: 'Pandora', src: 'https://logo.clearbit.com/pandora.net?size=256' },
+    { name: 'Skims', src: 'https://logo.clearbit.com/skims.com?size=256' },
     { name: 'Bad Bunny', src: 'https://www.shutterstock.com/image-vector/bad-bunny-logo-design-vector-600nw-2426262171.jpg' }
   ]
 }
@@ -74,35 +135,7 @@ function loadScriptOnce(src, id) {
 export default function App() {
   const proposalDate = useMemo(() => new Date().toISOString().slice(0, 10), [])
   const [activeSlide, setActiveSlide] = useState(0)
-  const projectSlides = useMemo(
-    () => [
-      {
-        id: 'winner-01',
-        title: 'UGC Winner 01',
-        description: 'Performance winner scaled in paid social loops.',
-        video: thalia.winnerVideos[0],
-        resultTop: 'Winner 01',
-        resultBottom: '5X ROAS'
-      },
-      {
-        id: 'winner-02',
-        title: 'UGC Winner 02',
-        description: 'Hook-first creative designed for conversion velocity.',
-        video: thalia.winnerVideos[1],
-        resultTop: 'Winner 02',
-        resultBottom: '4-5X ROAS'
-      },
-      {
-        id: 'winner-03',
-        title: 'UGC Winner 03',
-        description: 'Creative system tuned for repeatable ad account lift.',
-        video: thalia.winnerVideos[2],
-        resultTop: 'Winner 03',
-        resultBottom: '4-5X ROAS'
-      }
-    ],
-    []
-  )
+  const projectSlides = useMemo(() => thalia.winnerVideos, [])
   const totalSlides = projectSlides.length
   const prevSlide = () => setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides)
   const nextSlide = () => setActiveSlide((prev) => (prev + 1) % totalSlides)
@@ -287,7 +320,7 @@ export default function App() {
                           </div>
                           <div className="pixelated-image-card__active">
                             <video autoPlay muted loop playsInline>
-                              <source src={thalia.winnerVideos[0]} type="video/mp4" />
+                              <source src={thalia.winnerVideos[0].video} type="video/mp4" />
                             </video>
                           </div>
                           <div className="pixelated-image-card__pixels" />
@@ -308,6 +341,26 @@ export default function App() {
                         <h3>EXPERTISE</h3>
                         <p>6+ years across DTC, paid social, marketplaces, and lifecycle marketing.</p>
                       </a>
+                    </div>
+                    <div className="hero-logos-row" aria-label="Brands worked with">
+                      {thalia.brandLogos.map((logo) => (
+                        <div key={logo.name} className="brand-logo-chip">
+                          <img
+                            src={logo.src}
+                            alt={`${logo.name} logo`}
+                            loading="lazy"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none'
+                              const fallback = e.currentTarget.parentElement?.querySelector('.brand-fallback')
+                              if (fallback) {
+                                fallback.textContent = logo.name
+                                fallback.style.display = 'block'
+                              }
+                            }}
+                          />
+                          <span className="brand-fallback">{logo.name}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </li>
@@ -345,14 +398,14 @@ export default function App() {
                                 >
                                   <source src={slide.video} type="video/mp4" />
                                 </video>
+                                <div className="carousel-headline">
+                                  <h3 className="project-title">{slide.title}</h3>
+                                  <p className="project-description">{slide.description}</p>
+                                </div>
                                 <div className="result-float-tag">
                                   <span>{slide.resultTop}</span>
                                   <strong>{slide.resultBottom}</strong>
                                 </div>
-                              </div>
-                              <div className="project-info">
-                                <h3 className="project-title">{slide.title}</h3>
-                                <p className="project-description">{slide.description}</p>
                               </div>
                             </article>
                           )
@@ -370,26 +423,6 @@ export default function App() {
                           />
                         </svg>
                       </button>
-                    </div>
-                    <div className="brand-logos-row" aria-label="Brands worked with">
-                      {thalia.brandLogos.map((logo) => (
-                        <div key={logo.name} className="brand-logo-chip">
-                          <img
-                            src={logo.src}
-                            alt={`${logo.name} logo`}
-                            loading="lazy"
-                            onError={(e) => {
-                              e.currentTarget.style.display = 'none'
-                              const fallback = e.currentTarget.parentElement?.querySelector('.brand-fallback')
-                              if (fallback) {
-                                fallback.textContent = logo.name
-                                fallback.style.display = 'block'
-                              }
-                            }}
-                          />
-                          <span className="brand-fallback">{logo.name}</span>
-                        </div>
-                      ))}
                     </div>
                   </div>
                 </li>
