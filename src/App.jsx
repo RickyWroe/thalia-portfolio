@@ -88,13 +88,6 @@ const thalia = {
   ]
 }
 
-const stats = [
-  { value: '$2M+', label: 'Organic reach' },
-  { value: '4-5X', label: 'ROAS campaigns' },
-  { value: '$100K/MONTH', label: 'Evergreen ad spend' },
-  { value: '6+ YEARS', label: 'Hands-on experience' }
-]
-
 const services = [
   'UGC Ads',
   'Paid Social Creative',
@@ -284,9 +277,6 @@ export default function App() {
                     <span>Projects</span>
                   </li>
                   <li>
-                    <span>About</span>
-                  </li>
-                  <li>
                     <span>Contact</span>
                   </li>
                 </ul>
@@ -297,8 +287,7 @@ export default function App() {
                   <div className="intro">
                     <div className="intro--banner">
                       <h1>
-                        Performance UGC that turns <br />
-                        views into scalable revenue <br />
+                        Performance UGC Creator <br />
                         <span id="one-animation" data-shadow="Thalia">
                           Thalia
                         </span>{' '}
@@ -426,45 +415,6 @@ export default function App() {
                   </div>
                 </li>
 
-                <li className="l-section section" id="about">
-                  <div className="about">
-                    <div className="about--banner">
-                      <h2>
-                        Strategic<br />performance<br />with creator<br />
-                        <span className="dot" id="one-animation" data-shadow="discipline">
-                          discipline
-                        </span>
-                        <span className="hi">.</span>
-                      </h2>
-                      <a href={mailtoLink} className="carrer">
-                        Hire me
-                        <span>
-                          <svg
-                            version="1.1"
-                            id="Layer_1"
-                            xmlns="http://www.w3.org/2000/svg"
-                            xmlnsXlink="http://www.w3.org/1999/xlink"
-                            viewBox="0 0 150 118"
-                            xmlSpace="preserve"
-                          >
-                            <g transform="translate(0.000000,118.000000) scale(0.100000,-0.100000)">
-                              <path d="M870,1167c-34-17-55-57-46-90c3-15,81-100,194-211l187-185l-565-1c-431,0-571-3-590-13c-55-28-64-94-18-137c21-20,33-20,597-20h575l-192-193C800,103,794,94,849,39c20-20,39-29,61-29c28,0,63,30,298,262c147,144,272,271,279,282c30,51,23,60-219,304C947,1180,926,1196,870,1167z" />
-                            </g>
-                          </svg>
-                        </span>
-                      </a>
-                    </div>
-                    <div className="about--options">
-                      {stats.map((stat) => (
-                        <a key={stat.label} href="#" onClick={(e) => e.preventDefault()}>
-                          <h3>{stat.value}</h3>
-                          <p>{stat.label}</p>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </li>
-
                 <li className="l-section section" id="contact">
                   <div className="contact">
                     <div className="contact--lockup">
@@ -534,7 +484,6 @@ export default function App() {
         <ul className="outer-nav">
           <li className="is-active">Home</li>
           <li>Projects</li>
-          <li>About</li>
           <li>Contact</li>
         </ul>
       </div>
