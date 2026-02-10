@@ -11,64 +11,64 @@ const thalia = {
       title: 'Evergreen Ad 01',
       description: 'Aromely evergreen paid winner',
       video: 'https://cdn.shopify.com/videos/c/o/v/3b7ad7ab9843434f870093aaba59e5c1.mp4',
-      resultTop: 'Aromely Paid',
-      resultBottom: '2M impressions · 4X ROAS · $150K spend'
+      result: '2M impressions · 4X ROAS · $150K spend',
+      logo: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/1_63049b3c-6b51-4208-bed9-6b6b7dd0f566.png?v=1770698238'
     },
     {
       id: 'paid-02',
       title: 'Winner 02',
       description: 'Aromely paid winner',
       video: 'https://cdn.shopify.com/videos/c/o/v/85d46d46469c46279e14f452f981af5f.mp4',
-      resultTop: 'Aromely Paid',
-      resultBottom: '5X ROAS'
+      result: '5X ROAS',
+      logo: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/1_63049b3c-6b51-4208-bed9-6b6b7dd0f566.png?v=1770698238'
     },
     {
       id: 'paid-03',
       title: 'Winner 03',
       description: 'Aromely paid winner',
       video: 'https://cdn.shopify.com/videos/c/o/v/5a3cfcf8ecc9486daa427c422c12ff65.mp4',
-      resultTop: 'Aromely Paid',
-      resultBottom: '4X ROAS'
+      result: '4X ROAS',
+      logo: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/1_63049b3c-6b51-4208-bed9-6b6b7dd0f566.png?v=1770698238'
     },
     {
       id: 'paid-04',
       title: 'Winner 04',
       description: 'Aromely paid winner',
       video: 'https://cdn.shopify.com/videos/c/o/v/c354bacc3be54f3fa98948ff8ffda56a.mp4',
-      resultTop: 'Aromely Paid',
-      resultBottom: '6X ROAS'
+      result: '6X ROAS',
+      logo: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/1_63049b3c-6b51-4208-bed9-6b6b7dd0f566.png?v=1770698238'
     },
     {
       id: 'org-01',
       title: 'Bad Bunny Merch',
       description: 'Organic result',
       video: 'https://cdn.shopify.com/videos/c/o/v/08913302125e45a7b986ccdda12379ed.mp4',
-      resultTop: 'Organic',
-      resultBottom: '60K views'
+      result: '60K views organic',
+      logo: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/3_56e818d1-2b72-4da7-80e0-b44388955429.png?v=1770698238'
     },
     {
       id: 'org-02',
       title: 'Skims',
       description: 'Organic result',
       video: 'https://cdn.shopify.com/videos/c/o/v/f1b65a3fa8ec4f8eb3e23be6a0e78824.mp4',
-      resultTop: 'Organic',
-      resultBottom: '70% retention rate'
+      result: '70% retention rate',
+      logo: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/2_6f5f9207-9006-40e6-b0d4-d4791e856ab4.png?v=1770698238'
     },
     {
       id: 'org-03',
       title: 'Bad Bunny Merch 02',
       description: 'Organic result',
       video: 'https://cdn.shopify.com/videos/c/o/v/4b6701cd8f3b49d3a6c24ba3752f1453.mp4',
-      resultTop: 'Organic',
-      resultBottom: '300K views'
+      result: '300K views organic',
+      logo: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/3_56e818d1-2b72-4da7-80e0-b44388955429.png?v=1770698238'
     },
     {
       id: 'org-04',
       title: 'Pandora',
       description: 'Organic result',
       video: 'https://cdn.shopify.com/videos/c/o/v/8e5ca2bafa8d4a7b89acf545751214fb.mp4',
-      resultTop: 'Organic',
-      resultBottom: '80% engagement rate'
+      result: '80% engagement rate',
+      logo: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/4_e828e394-704a-45cc-8230-9e19566ce9ca.png?v=1770698238'
     }
   ],
   evergreen: {
@@ -81,10 +81,10 @@ const thalia = {
     { brand: 'Pandora', title: 'Organic result · 80% engagement rate', url: 'https://cdn.shopify.com/videos/c/o/v/8e5ca2bafa8d4a7b89acf545751214fb.mp4' }
   ],
   brandLogos: [
-    { name: 'Aromely', src: 'https://aromely.com/cdn/shop/files/LOGOTIPO_AROMELY.webp?v=1749227079&width=120' },
-    { name: 'Pandora', src: 'https://logo.clearbit.com/pandora.net?size=256' },
-    { name: 'Skims', src: 'https://logo.clearbit.com/skims.com?size=256' },
-    { name: 'Bad Bunny', src: 'https://www.shutterstock.com/image-vector/bad-bunny-logo-design-vector-600nw-2426262171.jpg' }
+    { name: 'Aromely', src: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/1_63049b3c-6b51-4208-bed9-6b6b7dd0f566.png?v=1770698238' },
+    { name: 'Skims', src: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/2_6f5f9207-9006-40e6-b0d4-d4791e856ab4.png?v=1770698238' },
+    { name: 'Bad Bunny', src: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/3_56e818d1-2b72-4da7-80e0-b44388955429.png?v=1770698238' },
+    { name: 'Pandora', src: 'https://cdn.shopify.com/s/files/1/0862/9157/9177/files/4_e828e394-704a-45cc-8230-9e19566ce9ca.png?v=1770698238' }
   ]
 }
 
@@ -398,13 +398,12 @@ export default function App() {
                                 >
                                   <source src={slide.video} type="video/mp4" />
                                 </video>
-                                <div className="carousel-headline">
-                                  <h3 className="project-title">{slide.title}</h3>
-                                  <p className="project-description">{slide.description}</p>
-                                </div>
-                                <div className="result-float-tag">
-                                  <span>{slide.resultTop}</span>
-                                  <strong>{slide.resultBottom}</strong>
+                                <div className="carousel-overlay">
+                                  <img src={slide.logo} alt={`${slide.title} logo`} loading="lazy" />
+                                  <div>
+                                    <h3 className="project-title">{slide.title}</h3>
+                                    <strong>{slide.result}</strong>
+                                  </div>
                                 </div>
                               </div>
                             </article>

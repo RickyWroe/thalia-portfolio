@@ -15,44 +15,52 @@
   background: #fff;
 }
 
+.work {
+  height: 80%;
+}
+
 .work--lockup .slider--item .project-card {
   width: min(92vw, 430px) !important;
 }
 
-.result-float-tag {
+.carousel-overlay {
   position: absolute;
-  left: 14px;
-  bottom: 14px;
-  z-index: 4;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
+  left: 10px;
+  right: 10px;
+  top: 10px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  padding: 8px 10px;
-  display: grid;
-  gap: 2px;
+  border-radius: 10px;
+  padding: 8px;
 }
 
-.result-float-tag span {
-  color: #ffffff;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+.carousel-overlay img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 8px;
+  padding: 4px;
 }
 
-.result-float-tag strong {
-  color: #ccf280;
-  font-size: 12px;
+.carousel-overlay .project-title {
+  margin: 0;
+  color: #fff;
+  font-size: 15px;
   line-height: 1.2;
 }
 
-.ugc-carousel-wrap {
-  position: relative;
-  margin-top: 8px;
-  display: grid;
-  grid-template-columns: 60px 1fr 60px;
-  align-items: center;
-  gap: 10px;
+.carousel-overlay strong {
+  display: block;
+  margin-top: 2px;
+  color: #ccf280;
+  font-size: 12px;
+  line-height: 1.2;
 }
 
 .ugc-carousel-track {
@@ -106,31 +114,6 @@
   height: 100%;
   display: block;
   object-fit: cover;
-}
-
-.carousel-headline {
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  top: 10px;
-  z-index: 5;
-  background: rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(4px);
-  border-radius: 10px;
-  padding: 8px 10px;
-}
-
-.carousel-headline .project-title {
-  margin: 0;
-  color: #fff;
-  font-size: 18px;
-}
-
-.carousel-headline .project-description {
-  margin: 2px 0 0;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 12px;
 }
 
 .ugc-carousel-nav {
@@ -220,6 +203,10 @@
     overflow: auto;
   }
 
+  .work {
+    height: auto;
+  }
+
   .ugc-carousel-wrap {
     grid-template-columns: 40px 1fr 40px;
     gap: 6px;
@@ -238,6 +225,15 @@
     transform: translateX(-50%) scale(0.86);
     opacity: 0.22;
     z-index: 1;
+  }
+
+  .carousel-overlay img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .carousel-overlay .project-title {
+    font-size: 13px;
   }
 
   .hero-logos-row {
