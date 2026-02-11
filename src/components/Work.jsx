@@ -92,17 +92,17 @@ const Work = () => {
                 transform: 'translateX(-50%) translateZ(0) scale(1)',
                 opacity: 1,
                 zIndex: 30,
-                },
-                left: {
-                    transform: 'translateX(calc(-50% - 215px)) scale(0.85) rotateY(18deg)',
-                    opacity: 0.5,
-                    zIndex: 20,
-                },
-                right: {
-                    transform: 'translateX(calc(-50% + 215px)) scale(0.85) rotateY(-18deg)',
-                    opacity: 0.5,
-                    zIndex: 20,
-                },
+            },
+            left: {
+                transform: 'translateX(calc(-50% - 215px)) scale(0.85) rotateY(18deg)',
+                opacity: 0.5,
+                zIndex: 20,
+            },
+            right: {
+                transform: 'translateX(calc(-50% + 215px)) scale(0.85) rotateY(-18deg)',
+                opacity: 0.5,
+                zIndex: 20,
+            },
             hidden: {
                 transform: 'translateX(-50%) scale(0.75)',
                 opacity: 0,
@@ -139,7 +139,7 @@ const Work = () => {
                 <div className="mb-16 text-center">
                     <h2 className="text-3xl md:text-5xl font-bold mb-6 text-secondary">Selected Work</h2>
                     <p className="text-accent max-w-2xl mx-auto">
-                        3D carousel of winner creatives ordered by campaign performance.
+                        UGC Paid & Organic Creative Winners.
                     </p>
                 </div>
 
