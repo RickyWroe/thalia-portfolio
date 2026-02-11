@@ -46,6 +46,7 @@ const videos = [
 
 const Work = () => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
     const videoRefs = useRef([]);
     const total = videos.length;
 
@@ -60,31 +61,55 @@ const Work = () => {
         return 'hidden';
     };
 
-    const cardStyles = useMemo(
-        () => ({
+    const cardStyles = useMemo(() => {
+        if (isMobile) {
+            return {
+                center: {
+                    transform: 'translateX(-50%) translateZ(0) scale(1)',
+                    opacity: 1,
+                    zIndex: 30,
+                },
+                left: {
+                    transform: 'translateX(calc(-50% - 98px)) scale(0.85) rotateY(15deg)',
+                    opacity: 0.34,
+                    zIndex: 20,
+                },
+                right: {
+                    transform: 'translateX(calc(-50% + 98px)) scale(0.85) rotateY(-15deg)',
+                    opacity: 0.34,
+                    zIndex: 20,
+                },
+                hidden: {
+                    transform: 'translateX(-50%) scale(0.72)',
+                    opacity: 0.05,
+                    zIndex: 10,
+                },
+            };
+        }
+
+        return {
             center: {
                 transform: 'translateX(-50%) translateZ(0) scale(1)',
                 opacity: 1,
                 zIndex: 30,
-            },
-            left: {
-                transform: 'translateX(calc(-50% - 230px)) scale(0.86) rotateY(18deg)',
-                opacity: 0.5,
-                zIndex: 20,
-            },
-            right: {
-                transform: 'translateX(calc(-50% + 230px)) scale(0.86) rotateY(-18deg)',
-                opacity: 0.5,
-                zIndex: 20,
-            },
+                },
+                left: {
+                    transform: 'translateX(calc(-50% - 215px)) scale(0.85) rotateY(18deg)',
+                    opacity: 0.5,
+                    zIndex: 20,
+                },
+                right: {
+                    transform: 'translateX(calc(-50% + 215px)) scale(0.85) rotateY(-18deg)',
+                    opacity: 0.5,
+                    zIndex: 20,
+                },
             hidden: {
                 transform: 'translateX(-50%) scale(0.75)',
                 opacity: 0,
                 zIndex: 10,
             },
-        }),
-        [],
-    );
+        };
+    }, [isMobile]);
 
     useEffect(() => {
         videoRefs.current.forEach((video, idx) => {
@@ -98,6 +123,15 @@ const Work = () => {
             video.currentTime = 0;
         });
     }, [activeIndex]);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 640px)');
+        const syncState = () => setIsMobile(mediaQuery.matches);
+        syncState();
+
+        mediaQuery.addEventListener('change', syncState);
+        return () => mediaQuery.removeEventListener('change', syncState);
+    }, []);
 
     return (
         <section className="py-16 sm:py-20 lg:py-24 px-5 sm:px-8 lg:px-12 bg-background">
@@ -119,14 +153,14 @@ const Work = () => {
                         <ChevronLeft className="w-5 h-5" />
                     </button>
 
-                    <div className="relative min-h-[560px] sm:min-h-[620px]" style={{ perspective: '1200px' }}>
+                    <div className="relative min-h-[505px] sm:min-h-[585px]" style={{ perspective: '1200px' }}>
                         {videos.map((video, index) => {
                             const position = getPosition(index);
                             return (
                                 <article
                                     key={video.src}
                                     style={cardStyles[position]}
-                                    className={`absolute top-0 left-1/2 w-[min(86vw,430px)] transition-all duration-300 will-change-transform ${position !== 'center' ? 'max-sm:hidden' : ''}`}
+                                    className="absolute top-0 left-1/2 w-[min(78vw,388px)] transition-all duration-300 will-change-transform"
                                 >
                                     <div className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden bg-slate-900 border border-primary/25">
                                         <div className="absolute top-2 left-2 right-2 z-10 bg-black/60 backdrop-blur-sm rounded-lg px-3 py-2">
