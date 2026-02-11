@@ -93,7 +93,8 @@ function App() {
 
       <a
         href="mailto:thalia.venous@gmail.com?subject=UGC-Proposal"
-        className="hidden md:inline-flex fixed bottom-4 left-1/2 -translate-x-1/2 z-50 items-center justify-center rounded-full bg-primary text-white px-7 py-3 font-semibold shadow-[0_12px_24px_rgba(225,166,180,0.45)] hover:opacity-90 transition-opacity"
+        className={`fixed bottom-4 left-1/2 -translate-x-1/2 z-50 inline-flex items-center justify-center rounded-full bg-primary text-white px-7 py-3 font-semibold shadow-[0_12px_24px_rgba(225,166,180,0.45)] transition-opacity ${activeSection === 'contact' ? 'opacity-0 pointer-events-none' : 'hover:opacity-90'
+          }`}
       >
         Hire me
       </a>

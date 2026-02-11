@@ -135,7 +135,7 @@ const Work = () => {
 
     return (
         <section className="py-16 sm:py-20 lg:py-24 px-5 sm:px-8 lg:px-12 bg-background">
-            <div className="max-w-6xl mx-auto overflow-hidden">
+            <div className="max-w-6xl mx-auto overflow-visible">
                 <div className="mb-16 text-center">
                     <h2 className="text-3xl md:text-5xl font-bold mb-6 text-secondary">Selected Work</h2>
                     <p className="text-accent max-w-2xl mx-auto">
@@ -143,7 +143,7 @@ const Work = () => {
                     </p>
                 </div>
 
-                <div className="relative grid grid-cols-[44px_1fr_44px] sm:grid-cols-[52px_1fr_52px] items-center gap-2 sm:gap-4">
+                <div className="relative grid grid-cols-[44px_1fr_44px] sm:grid-cols-[52px_1fr_52px] items-center gap-2 sm:gap-4 overflow-visible isolate">
                     <button
                         type="button"
                         onClick={prevSlide}
@@ -153,7 +153,7 @@ const Work = () => {
                         <ChevronLeft className="w-5 h-5" />
                     </button>
 
-                    <div className="relative min-h-[505px] sm:min-h-[585px]" style={{ perspective: '1200px' }}>
+                    <div className="relative min-h-[505px] sm:min-h-[585px] overflow-visible" style={{ perspective: '1200px' }}>
                         {videos.map((video, index) => {
                             const position = getPosition(index);
                             return (
