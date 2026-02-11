@@ -42,9 +42,9 @@ const Work = () => {
         <section className="py-16 sm:py-20 lg:py-24 px-5 sm:px-8 lg:px-12 bg-background">
             <div className="max-w-6xl mx-auto">
                 <div className="mb-16 text-center">
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6 text-secondary">Selected Work</h2>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-6 text-secondary">UGC Winner Ads</h2>
                     <p className="text-accent max-w-2xl mx-auto">
-                        A curation of high-performing creative assets driving real revenue and engagement.
+                        Content that Converts 5X with over 100K spend
                     </p>
                 </div>
 

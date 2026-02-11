@@ -1,4 +1,42 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap");
+@font-face {
+  font-family: "Montserrat";
+  src: url("fonts/Montserrat-Black.eot");
+  src: local("☺"), url("fonts/Montserrat-Black.woff") format("woff"),
+    url("fonts/Montserrat-Black.ttf") format("truetype"),
+    url("fonts/Montserrat-Black.svg") format("svg");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("fonts/Montserrat-Bold.eot");
+  src: local("☺"), url("fonts/Montserrat-Bold.woff") format("woff"),
+    url("fonts/Montserrat-Bold.ttf") format("truetype"),
+    url("fonts/Montserrat-Bold.svg") format("svg");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("fonts/Montserrat-Regular.eot");
+  src: local("☺"), url("fonts/Montserrat-Regular.woff") format("woff"),
+    url("fonts/Montserrat-Regular.ttf") format("truetype"),
+    url("fonts/Montserrat-Regular.svg") format("svg");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("fonts/Montserrat-Light.eot");
+  src: local("☺"), url("fonts/Montserrat-Light.woff") format("woff"),
+    url("fonts/Montserrat-Light.ttf") format("truetype"),
+    url("fonts/Montserrat-Light.svg") format("svg");
+  font-weight: 300;
+  font-style: normal;
+}
 
 :root {
   --primary-color: #ccf280;
@@ -2527,26 +2565,26 @@ body {
 }
 
 .about--options > a:nth-child(1) {
-  background-image: linear-gradient(135deg, #1f2937, #4b5563);
+  background-image: url("../img/CS50x.ico");
   background-size: cover;
 }
 
 .about--options > a:nth-child(2) {
-  background-image: linear-gradient(135deg, #0ea5e9, #2563eb);
+  background-image: url("../img/meta.ico");
   background-size: cover;
 }
 
 .about--options > a:nth-child(3) {
-  background-image: linear-gradient(135deg, #1d4ed8, #1e40af);
+  background-image: url("../img/ibm.ico");
   background-size: cover;
 }
 
 .about--options > a:nth-child(4) {
-  background-image: linear-gradient(135deg, #ea580c, #dc2626);
+  background-image: url("../img/google.ico");
   background-size: cover;
 }
 .about--options > a:nth-child(5) {
-  background-image: linear-gradient(135deg, #7c2d12, #111827);
+  background-image: url("../img/oracle.ico");
   background-size: cover;
 }
 

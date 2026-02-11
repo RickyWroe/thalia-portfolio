@@ -289,7 +289,7 @@ window.triggerStairsTransition = function (callback, isReverse = false) {
 // Global variable to track topology loading
 window.topologyLoaded = false;
 
-function initReferenceLoader() {
+document.addEventListener("DOMContentLoaded", function () {
   stairsContainer = document.getElementById("stairs-transition");
   capybaraLoader = document.getElementById("capybara-loader");
   if (capybaraLoader) {
@@ -327,13 +327,7 @@ function initReferenceLoader() {
   
   // Start checking after minimum 1.5 seconds
   setTimeout(checkTopologyLoaded, 1500);
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initReferenceLoader);
-} else {
-  initReferenceLoader();
-}
+});
 
 const container = document.querySelector(".pixelated-image-card");
 if (!container) {
