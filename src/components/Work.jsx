@@ -1,89 +1,176 @@
-import React from 'react';
-import { Play, ExternalLink } from 'lucide-react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const videos = [
     {
-        type: 'mp4',
-        src: "https://cdn.shopify.com/videos/c/o/v/c354bacc3be54f3fa98948ff8ffda56a.mp4",
-        title: "High-Converting UGC"
+        src: "https://cdn.shopify.com/videos/c/o/v/3b7ad7ab9843434f870093aaba59e5c1.mp4",
+        title: "Evergreen Ad 01",
+        result: "2M impressions · 4X ROAS · $150K spend",
     },
     {
-        type: 'mp4',
-        src: "https://cdn.shopify.com/videos/c/o/v/5a3cfcf8ecc9486daa427c422c12ff65.mp4",
-        title: "Product Showcase"
+        src: "https://cdn.shopify.com/videos/c/o/v/08913302125e45a7b986ccdda12379ed.mp4",
+        title: "Bad Bunny Merch",
+        result: "Organic result · 60K views",
     },
     {
-        type: 'mp4',
+        src: "https://cdn.shopify.com/videos/c/o/v/f1b65a3fa8ec4f8eb3e23be6a0e78824.mp4",
+        title: "Skims",
+        result: "Organic result · 70% retention rate",
+    },
+    {
+        src: "https://cdn.shopify.com/videos/c/o/v/4b6701cd8f3b49d3a6c24ba3752f1453.mp4",
+        title: "Bad Bunny Merch 02",
+        result: "Organic result · 300K views",
+    },
+    {
+        src: "https://cdn.shopify.com/videos/c/o/v/8e5ca2bafa8d4a7b89acf545751214fb.mp4",
+        title: "Pandora",
+        result: "Organic result · 80% engagement rate",
+    },
+    {
         src: "https://cdn.shopify.com/videos/c/o/v/85d46d46469c46279e14f452f981af5f.mp4",
-        title: "Viral Creative"
-    }
-];
-
-const socialLinks = [
-    {
-        platform: "Instagram",
-        url: "https://www.instagram.com/reel/DNIZKu_u7gb/",
-        label: "View Winner Ad (5x ROAS)"
+        title: "Winner 02",
+        result: "5X ROAS",
     },
     {
-        platform: "TikTok",
-        url: "https://www.tiktok.com/@thalia.unboxes/video/7584207487356718349",
-        label: "Bad Bunny Contest"
+        src: "https://cdn.shopify.com/videos/c/o/v/5a3cfcf8ecc9486daa427c422c12ff65.mp4",
+        title: "Winner 03",
+        result: "4X ROAS",
     },
     {
-        platform: "TikTok",
-        url: "https://www.tiktok.com/@thalia.unboxes/video/7454414956965186862",
-        label: "Pandora Collab"
-    }
+        src: "https://cdn.shopify.com/videos/c/o/v/c354bacc3be54f3fa98948ff8ffda56a.mp4",
+        title: "Winner 04",
+        result: "6X ROAS",
+    },
 ];
 
 const Work = () => {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const videoRefs = useRef([]);
+    const total = videos.length;
+
+    const prevSlide = () => setActiveIndex((prev) => (prev - 1 + total) % total);
+    const nextSlide = () => setActiveIndex((prev) => (prev + 1) % total);
+
+    const getPosition = (index) => {
+        const offset = (index - activeIndex + total) % total;
+        if (offset === 0) return 'center';
+        if (offset === 1) return 'right';
+        if (offset === total - 1) return 'left';
+        return 'hidden';
+    };
+
+    const cardStyles = useMemo(
+        () => ({
+            center: {
+                transform: 'translateX(-50%) translateZ(0) scale(1)',
+                opacity: 1,
+                zIndex: 30,
+            },
+            left: {
+                transform: 'translateX(calc(-50% - 230px)) scale(0.86) rotateY(18deg)',
+                opacity: 0.5,
+                zIndex: 20,
+            },
+            right: {
+                transform: 'translateX(calc(-50% + 230px)) scale(0.86) rotateY(-18deg)',
+                opacity: 0.5,
+                zIndex: 20,
+            },
+            hidden: {
+                transform: 'translateX(-50%) scale(0.75)',
+                opacity: 0,
+                zIndex: 10,
+            },
+        }),
+        [],
+    );
+
+    useEffect(() => {
+        videoRefs.current.forEach((video, idx) => {
+            if (!video) return;
+            if (idx === activeIndex) {
+                video.play().catch(() => { });
+                return;
+            }
+
+            video.pause();
+            video.currentTime = 0;
+        });
+    }, [activeIndex]);
+
     return (
         <section className="py-16 sm:py-20 lg:py-24 px-5 sm:px-8 lg:px-12 bg-background">
-            <div className="max-w-6xl mx-auto">
+            <div className="max-w-6xl mx-auto overflow-hidden">
                 <div className="mb-16 text-center">
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6 text-secondary">UGC Winner Ads</h2>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-6 text-secondary">Selected Work</h2>
                     <p className="text-accent max-w-2xl mx-auto">
-                        Content that Converts 5X with over 100K spend
+                        3D carousel of winner creatives ordered by campaign performance.
                     </p>
                 </div>
 
-                {/* MP4 Video Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 mb-14">
-                    {videos.map((video, index) => (
-                        <div key={index} className="relative aspect-[9/16] bg-slate-900 rounded-2xl overflow-hidden group shadow-lg border border-primary/20">
-                            <video
-                                src={video.src}
-                                className="w-full h-full object-cover"
-                                muted
-                                playsInline
-                                loop
-                                autoPlay
-                                preload="none"
-                            />
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <Play className="w-12 h-12 text-white fill-white" />
-                            </div>
-                        </div>
-                    ))}
+                <div className="relative grid grid-cols-[44px_1fr_44px] sm:grid-cols-[52px_1fr_52px] items-center gap-2 sm:gap-4">
+                    <button
+                        type="button"
+                        onClick={prevSlide}
+                        className="h-11 w-11 sm:h-12 sm:w-12 rounded-full border border-primary/35 text-primary inline-flex items-center justify-center hover:bg-highlight transition-colors"
+                        aria-label="Previous video"
+                    >
+                        <ChevronLeft className="w-5 h-5" />
+                    </button>
+
+                    <div className="relative min-h-[560px] sm:min-h-[620px]" style={{ perspective: '1200px' }}>
+                        {videos.map((video, index) => {
+                            const position = getPosition(index);
+                            return (
+                                <article
+                                    key={video.src}
+                                    style={cardStyles[position]}
+                                    className={`absolute top-0 left-1/2 w-[min(86vw,430px)] transition-all duration-300 will-change-transform ${position !== 'center' ? 'max-sm:hidden' : ''}`}
+                                >
+                                    <div className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden bg-slate-900 border border-primary/25">
+                                        <div className="absolute top-2 left-2 right-2 z-10 bg-black/60 backdrop-blur-sm rounded-lg px-3 py-2">
+                                            <p className="text-white text-sm font-semibold leading-tight">{video.title}</p>
+                                            <p className="text-highlight text-xs sm:text-sm leading-tight mt-1">{video.result}</p>
+                                        </div>
+
+                                        <video
+                                            ref={(node) => {
+                                                videoRefs.current[index] = node;
+                                            }}
+                                            src={video.src}
+                                            className="w-full h-full object-cover"
+                                            muted
+                                            playsInline
+                                            loop
+                                            preload={position === 'center' ? 'metadata' : 'none'}
+                                        />
+                                    </div>
+                                </article>
+                            );
+                        })}
+                    </div>
+
+                    <button
+                        type="button"
+                        onClick={nextSlide}
+                        className="h-11 w-11 sm:h-12 sm:w-12 rounded-full border border-primary/35 text-primary inline-flex items-center justify-center hover:bg-highlight transition-colors"
+                        aria-label="Next video"
+                    >
+                        <ChevronRight className="w-5 h-5" />
+                    </button>
                 </div>
 
-                {/* Social Links / Other Works */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-                    {socialLinks.map((link, index) => (
-                        <a
-                            key={index}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-between p-6 bg-white rounded-xl hover:bg-highlight transition-colors border border-primary/20 group"
-                        >
-                            <div>
-                                <h3 className="font-semibold text-lg text-secondary">{link.platform}</h3>
-                                <p className="text-sm text-accent">{link.label}</p>
-                            </div>
-                            <ExternalLink className="w-5 h-5 text-accent group-hover:text-secondary transition-colors" />
-                        </a>
+                <div className="mt-7 flex items-center justify-center gap-2">
+                    {videos.map((video, index) => (
+                        <button
+                            key={video.src}
+                            type="button"
+                            onClick={() => setActiveIndex(index)}
+                            className={`h-2.5 rounded-full transition-all ${index === activeIndex ? 'w-8 bg-primary' : 'w-2.5 bg-primary/35'
+                                }`}
+                            aria-label={`Go to video ${index + 1}`}
+                        />
                     ))}
                 </div>
             </div>

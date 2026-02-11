@@ -214,6 +214,29 @@
   max-width: 100% !important;
 }
 
+.journey-section {
+  opacity: 0.72;
+  transform: translateY(18px);
+  filter: saturate(0.85);
+  transition: opacity 320ms ease, transform 320ms ease, filter 320ms ease;
+}
+
+.journey-section.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  filter: saturate(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-section,
+  .journey-section.is-active {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+
 @media (max-width: 767px) {
   body {
     overflow: auto;
