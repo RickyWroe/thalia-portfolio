@@ -147,7 +147,7 @@ const Work = () => {
                     <button
                         type="button"
                         onClick={prevSlide}
-                        className="h-11 w-11 sm:h-12 sm:w-12 rounded-full border border-primary/35 text-primary inline-flex items-center justify-center hover:bg-highlight transition-colors"
+                        className="relative z-40 h-11 w-11 sm:h-12 sm:w-12 rounded-full border border-primary/35 text-primary inline-flex items-center justify-center hover:bg-highlight transition-colors"
                         aria-label="Previous video"
                     >
                         <ChevronLeft className="w-5 h-5" />
@@ -160,7 +160,8 @@ const Work = () => {
                                 <article
                                     key={video.src}
                                     style={cardStyles[position]}
-                                    className="absolute top-0 left-1/2 w-[min(78vw,388px)] transition-all duration-300 will-change-transform"
+                                    className={`absolute top-0 left-1/2 w-[min(78vw,388px)] transition-all duration-300 will-change-transform ${position === 'center' ? 'pointer-events-auto' : 'pointer-events-none'
+                                        }`}
                                 >
                                     <div className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden bg-slate-900 border border-primary/25">
                                         <div className="absolute top-2 left-2 right-2 z-10 bg-black/60 backdrop-blur-sm rounded-lg px-3 py-2">
@@ -188,7 +189,7 @@ const Work = () => {
                     <button
                         type="button"
                         onClick={nextSlide}
-                        className="h-11 w-11 sm:h-12 sm:w-12 rounded-full border border-primary/35 text-primary inline-flex items-center justify-center hover:bg-highlight transition-colors"
+                        className="relative z-40 h-11 w-11 sm:h-12 sm:w-12 rounded-full border border-primary/35 text-primary inline-flex items-center justify-center hover:bg-highlight transition-colors"
                         aria-label="Next video"
                     >
                         <ChevronRight className="w-5 h-5" />
